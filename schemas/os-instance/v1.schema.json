@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/os-instance/v1",
+  "title": "Multiversa OS Instance v1",
+  "type": "object",
+  "required": ["schema_version", "id", "slug", "name", "owner_id", "profile_version", "status"],
+  "properties": {
+    "schema_version": { "const": "os-instance/v1" },
+    "id": { "type": "string", "format": "uuid" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "owner_id": { "type": "string", "minLength": 1 },
+    "profile_version": { "type": "string", "pattern": "^profile/v[1-9][0-9]*$" },
+    "status": { "enum": ["draft", "active", "suspended", "archived", "deletion_pending"] },
+    "blueprint_ref": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

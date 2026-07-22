@@ -1,0 +1,1 @@
+{"schema_version":"capability/v1","id":"memory.engram","version":"1.0.0","mode":"local","status":"available","provider":"engram","requires_human_approval":false,"limitations":["lexical fallback when embeddings are unavailable"]}

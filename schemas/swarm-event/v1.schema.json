@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/swarm-event/v1",
+  "title": "Multiversa SWARM Event v1",
+  "type": "object",
+  "required": ["schema_version", "id", "mission_id", "os_instance_id", "timestamp", "sequence", "source", "type", "hardness", "payload"],
+  "properties": {
+    "schema_version": { "const": "swarm-event/v1" },
+    "id": { "type": "string", "format": "uuid" },
+    "mission_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "os_instance_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "source": {
+      "type": "object",
+      "required": ["agent_id", "capability_id"],
+      "properties": {
+        "agent_id": { "type": "string", "minLength": 1 },
+        "capability_id": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*$" },
+        "work_item_id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "type": { "enum": ["observed", "planned", "started", "progress", "evidence", "learning_candidate", "human_gate", "blocked", "failed", "completed"] },
+    "hardness": { "enum": ["H1", "H2", "H3", "H4"] },
+    "payload": { "type": "object" },
+    "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "causation_id": { "type": "string", "format": "uuid" },
+    "correlation_id": { "type": "string", "format": "uuid" }
+  },
+  "additionalProperties": false
+}

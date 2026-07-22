@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/mission/v1",
+  "title": "Multiversa Mission v1",
+  "type": "object",
+  "required": ["schema_version", "id", "os_instance_id", "objective", "hardness", "owner_id", "authority", "gates", "learning", "status"],
+  "properties": {
+    "schema_version": { "const": "mission/v1" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "os_instance_id": { "type": "string", "format": "uuid" },
+    "objective": { "type": "string", "minLength": 1 },
+    "hardness": { "enum": ["H1", "H2", "H3", "H4"] },
+    "owner_id": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["draft", "ready", "running", "waiting_human", "blocked", "completed", "cancelled"] },
+    "authority": {
+      "type": "object",
+      "required": ["read", "write", "external_write"],
+      "properties": {
+        "read": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "write": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "external_write": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "gates": {
+      "type": "object",
+      "required": ["human_approval", "evidence"],
+      "properties": {
+        "human_approval": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "learning": {
+      "type": "object",
+      "required": ["capture", "promotion"],
+      "properties": {
+        "capture": { "type": "boolean" },
+        "promotion": { "enum": ["disabled", "reviewed", "human_approved"] }
+      },
+      "additionalProperties": false
+    },
+    "stop_conditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  },
+  "additionalProperties": false
+}

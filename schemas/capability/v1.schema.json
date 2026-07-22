@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/capability/v1",
+  "title": "Multiversa Capability v1",
+  "type": "object",
+  "required": ["schema_version", "id", "version", "mode", "status", "provider", "requires_human_approval"],
+  "properties": {
+    "schema_version": { "const": "capability/v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
+    "mode": { "enum": ["local", "remote", "hybrid", "degraded", "disabled"] },
+    "status": { "enum": ["available", "unavailable", "misconfigured", "unknown"] },
+    "provider": { "type": "string", "minLength": 1 },
+    "requires_human_approval": { "type": "boolean" },
+    "inputs_schema_ref": { "type": "string", "format": "uri-reference" },
+    "outputs_schema_ref": { "type": "string", "format": "uri-reference" },
+    "limitations": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  },
+  "additionalProperties": false
+}

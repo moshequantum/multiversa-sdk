@@ -1,0 +1,1 @@
+{"schema_version":"swarm-event/v1","id":"33333333-3333-4333-8333-333333333333","mission_id":"launch-horizon","os_instance_id":"22222222-2222-4222-8222-222222222222","timestamp":"2026-07-22T12:00:00Z","sequence":-1,"source":{"agent_id":"agent-reviewer","capability_id":"quality.review"},"type":"evidence","hardness":"H3","payload":{}}

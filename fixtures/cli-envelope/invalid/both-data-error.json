@@ -1,0 +1,1 @@
+{"schema":"multiversa.detect/v1","command":"detect","cli_version":"v0.8.0","ok":true,"data":{},"error":{"code":"bad","message":"must not coexist"}}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/profile/v1",
+  "title": "Multiversa Profile v1",
+  "type": "object",
+  "required": ["schema_version", "os_instance_id", "identity", "governance", "routing", "capabilities"],
+  "properties": {
+    "schema_version": { "const": "profile/v1" },
+    "os_instance_id": { "type": "string", "format": "uuid" },
+    "revision": { "type": "integer", "minimum": 1, "default": 1 },
+    "identity": {
+      "type": "object",
+      "required": ["name", "language", "principles", "taboos"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "voice": { "type": "string" },
+        "language": { "type": "string", "minLength": 2 },
+        "principles": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "taboos": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "governance": {
+      "type": "object",
+      "required": ["human_in_the_loop", "approval_required"],
+      "properties": {
+        "human_in_the_loop": { "const": true },
+        "approval_required": {
+          "type": "array",
+          "items": { "enum": ["external_write", "destructive_action", "production", "identity", "policy", "permission", "contract"] },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "routing": {
+      "type": "object",
+      "required": ["primary", "human_escalation"],
+      "properties": {
+        "primary": { "enum": ["lab", "group"] },
+        "human_escalation": { "const": true },
+        "group_reference": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*$" },
+      "uniqueItems": true
+    },
+    "sources": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  },
+  "additionalProperties": false
+}

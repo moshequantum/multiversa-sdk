@@ -1,0 +1,1 @@
+{"schema_version":"mission/v1","id":"launch-horizon","os_instance_id":"22222222-2222-4222-8222-222222222222","objective":"Release","hardness":"H5","owner_id":"owner-001","status":"ready","authority":{"read":[],"write":[],"external_write":false},"gates":{"human_approval":[],"evidence":["tests"]},"learning":{"capture":true,"promotion":"reviewed"}}

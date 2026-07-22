@@ -1,0 +1,1 @@
+{"schema_version":"profile/v1","os_instance_id":"11111111-1111-4111-8111-111111111111","identity":{"name":"Proyecto","language":"es","principles":[],"taboos":[]},"governance":{"human_in_the_loop":false,"approval_required":[]},"routing":{"primary":"lab","human_escalation":true},"capabilities":[]}

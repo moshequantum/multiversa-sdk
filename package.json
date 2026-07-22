@@ -1,0 +1,21 @@
+{
+  "name": "@multiversa/sdk",
+  "version": "0.1.0",
+  "description": "Public, vendor-neutral contracts for Multiversa Lab",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.15.0",
+  "files": [
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node scripts/check-contracts.mjs",
+    "test": "node scripts/check-contracts.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
