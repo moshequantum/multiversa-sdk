@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.multiversa.dev/voice-profile/v1",
+  "title": "Multiversa VoiceProfile v1",
+  "description": "Private-by-default linguistic and relationship contract for one OSInstance. It configures adapters without redefining upstream agent personas.",
+  "type": "object",
+  "required": ["schema_version", "os_instance_id", "revision", "human", "language", "interaction", "assistant", "governance"],
+  "properties": {
+    "schema_version": { "const": "voice-profile/v1" },
+    "os_instance_id": { "type": "string", "format": "uuid" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "human": {
+      "type": "object",
+      "required": ["preferred_name", "goals", "current_focus"],
+      "properties": {
+        "preferred_name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "pronouns": { "type": "string", "maxLength": 80 },
+        "goals": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 500 }, "uniqueItems": true },
+        "current_focus": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 500 }, "uniqueItems": true },
+        "working_style": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 300 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "language": {
+      "type": "object",
+      "required": ["primary", "addressing", "regionality"],
+      "properties": {
+        "primary": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$" },
+        "fallbacks": { "type": "array", "maxItems": 5, "items": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$" }, "uniqueItems": true },
+        "addressing": { "enum": ["tuteo", "voseo", "usted", "adaptive"] },
+        "regionality": { "enum": ["neutral-latam", "regional", "custom"] },
+        "region_hint": { "type": "string", "maxLength": 80 },
+        "code_switching": { "enum": ["avoid", "technical-only", "natural", "allowed"] },
+        "preferred_terms": { "type": "array", "maxItems": 50, "items": { "type": "string", "minLength": 1, "maxLength": 120 }, "uniqueItems": true },
+        "avoided_terms": { "type": "array", "maxItems": 50, "items": { "type": "string", "minLength": 1, "maxLength": 120 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "interaction": {
+      "type": "object",
+      "required": ["warmth", "directness", "detail", "humor", "challenge_mode"],
+      "properties": {
+        "warmth": { "type": "number", "minimum": 0, "maximum": 1 },
+        "directness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "detail": { "enum": ["concise", "balanced", "expansive", "adaptive"] },
+        "humor": { "enum": ["none", "light", "playful", "adaptive"] },
+        "challenge_mode": { "enum": ["supportive", "socratic", "direct", "adaptive"] },
+        "rhythm_notes": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 300 }, "uniqueItems": true },
+        "repair_strategy": { "enum": ["ask", "state-assumption", "offer-options", "adaptive"] }
+      },
+      "additionalProperties": false
+    },
+    "assistant": {
+      "type": "object",
+      "required": ["name", "role", "relationship"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "role": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "relationship": { "enum": ["operator", "copilot", "advisor", "teacher", "challenger", "custom"] },
+        "relationship_notes": { "type": "string", "maxLength": 1000 },
+        "must_not_impersonate_human": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "governance": {
+      "type": "object",
+      "required": ["human_confirmation_required", "inference_policy", "sensitive_traits"],
+      "properties": {
+        "human_confirmation_required": { "const": true },
+        "inference_policy": { "enum": ["explicit-only", "propose-and-confirm"] },
+        "sensitive_traits": { "const": "never-infer" },
+        "evidence_refs": { "type": "array", "maxItems": 50, "items": { "type": "string", "minLength": 1, "maxLength": 300 }, "uniqueItems": true },
+        "confirmed_at": { "type": "string", "format": "date-time" },
+        "confirmed_by": { "type": "string", "minLength": 1, "maxLength": 120 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

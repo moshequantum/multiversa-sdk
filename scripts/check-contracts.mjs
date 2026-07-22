@@ -3,7 +3,7 @@ import { join, relative } from 'node:path';
 import process from 'node:process';
 
 const root = new URL('..', import.meta.url).pathname;
-const contracts = ['cli-envelope', 'profile', 'os-instance', 'mission', 'capability', 'swarm-event'];
+const contracts = ['cli-envelope', 'profile', 'voice-profile', 'os-instance', 'mission', 'capability', 'swarm-event'];
 const failures = [];
 
 async function json(path) {
@@ -24,6 +24,12 @@ function coreValid(contract, value) {
     case 'profile':
       return value.schema_version === 'profile/v1' && value.governance?.human_in_the_loop === true &&
         value.routing?.human_escalation === true && ['lab', 'group'].includes(value.routing?.primary);
+    case 'voice-profile':
+      return value.schema_version === 'voice-profile/v1' && value.revision >= 1 &&
+        value.governance?.human_confirmation_required === true &&
+        value.governance?.sensitive_traits === 'never-infer' &&
+        value.assistant?.must_not_impersonate_human === true &&
+        ['tuteo', 'voseo', 'usted', 'adaptive'].includes(value.language?.addressing);
     case 'os-instance':
       return value.schema_version === 'os-instance/v1' && typeof value.slug === 'string' &&
         /^[a-z0-9][a-z0-9-]{1,62}$/.test(value.slug) && !('tier' in value);
