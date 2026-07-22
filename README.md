@@ -1,6 +1,6 @@
 # Multiversa SDK
 
-Public, vendor-neutral contracts for building and integrating a Multiversa OS.
+Public, vendor-neutral contracts for building and integrating a unique Project OS.
 This repository begins with the protocol layer: versioned JSON Schemas and
 executable fixtures shared by the CLI, MCP server, Installer, local HTTP surface,
 and future language SDKs.
@@ -34,6 +34,10 @@ additive fields unless their security policy requires stricter handling.
 ```bash
 pnpm check
 ```
+
+Release candidates are distributed from GitHub as a source archive and a packed
+contract artifact. This package is not yet published to npm; do not treat the
+package name as an npm availability claim.
 
 The initial checker has no external dependencies. It validates JSON syntax, schema
 metadata, local references, fixture coverage, and core valid/invalid invariants.
