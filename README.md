@@ -14,6 +14,7 @@ prompts, credentials, or deployment configuration.
 |---|---|---|
 | CLI envelope | `https://schemas.multiversa.dev/cli-envelope/v1` | Stable success/error boundary for machine-readable CLI output |
 | Profile | `https://schemas.multiversa.dev/profile/v1` | Identity, governance, taboos, routing, and enabled capabilities |
+| VoiceProfile | `https://schemas.multiversa.dev/voice-profile/v1` | Private-by-default language, address form, interaction and assistant relationship contract |
 | OS instance | `https://schemas.multiversa.dev/os-instance/v1` | Unique system owned by one project |
 | Mission | `https://schemas.multiversa.dev/mission/v1` | Verifiable objective, authority, gates, and learning policy |
 | Capability | `https://schemas.multiversa.dev/capability/v1` | Versioned unit of technical ability and its operating mode |
@@ -50,3 +51,8 @@ Secret values never cross these contracts. Use opaque secret references and a
 separate protected channel. A Profile may route reusable work to Lab or private
 work to Group, but commercial terms and private engagement details remain outside
 the public contract.
+
+A `VoiceProfile` may contain personal context and is therefore private by default.
+Adapters may project it into an upstream custom-persona surface, but must not publish
+it, infer sensitive traits, impersonate the human, or change identity/language rules
+without confirmation from the OS owner.
