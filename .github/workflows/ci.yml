@@ -19,6 +19,6 @@ jobs:
           version: 11.15.0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - name: Validate contracts and fixtures
         run: pnpm check
